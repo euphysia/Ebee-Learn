@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ebee Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .course-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .nav-link-active {
+            color: #dc2626; /* red-600 */
+            font-weight: 600;
+        }
+        .page-content {
+            display: none;
+        }
+        .assignment-done {
+            background-color: #16a34a; /* green-600 */
+            color: white;
+            cursor: not-allowed;
+        }
+         .assignment-done:hover {
+            background-color: #15803d; /* green-700 */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://img.afterschool.my/storage/uploads/images/521/logo/large/logo1.png" 
+                     alt="MMU Logo" 
+                     class="h-12"
+                     onerror="this.onerror=null;this.src='https://placehold.co/200x50/ff0000/ffffff?text=MMU+Logo';">
+                <h1 class="text-xl font-bold text-gray-800">Ebee Platform</h1>
+            </div>
+            <div id="nav-links" class="hidden md:flex items-center space-x-6">
+                <a href="#" data-page="dashboard" class="nav-link text-gray-600 hover:text-red-600 transition-colors">Dashboard</a>
+                <a href="#" data-page="calendar" class="nav-link text-gray-600 hover:text-red-600 transition-colors">Calendar</a>
+                <a href="#" data-page="grades" class="nav-link text-gray-600 hover:text-red-600 transition-colors">Grades</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-gray-500 hover:text-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                </button>
+                <div class="relative">
+                    <img class="h-10 w-10 rounded-full object-cover" src="https://placehold.co/100x100/E2E8F0/4A5568?text=User" alt="User profile photo">
+                    <span class="absolute right-0 bottom-0 h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container mx-auto px-6 py-8">
+
+        <!-- Dashboard/Courses Page Content -->
+        <div id="dashboard-page" class="page-content">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Welcome Back, Student!</h2>
+                    <p class="text-gray-600 mt-1">Let's have a productive day. Here are your active courses.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Course Cards will be dynamically generated here -->
+            </div>
+        </div>
+
+        <!-- Course Detail Page Content -->
+        <div id="course-detail-page" class="page-content">
+             <!-- Content will be dynamically generated here -->
+        </div>
+
+        <!-- Calendar Page Content -->
+        <div id="calendar-page" class="page-content">
+            <!-- Calendar content from previous step -->
+        </div>
+
+        <!-- Grades Page Content -->
+        <div id="grades-page" class="page-content">
+            <!-- Grades content from previous step -->
+        </div>
+
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <p class="text-sm text-gray-500">&copy; 2025 Multimedia University. All Rights Reserved.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-sm text-gray-500 hover:text-red-600">Help Center</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-red-600">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Mock Data ---
+        const courses = {
+            'TMA101': {
+                title: 'TMA101 - Calculus', instructor: 'Dr. Ahmad Faisal', image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=1974&auto=format&fit=crop', instructorImg: 'https://placehold.co/100x100/CBD5E0/4A5568?text=AF', update: '3 upcoming deadlines',
+                announcements: [
+                    { by: 'Dr. Ahmad Faisal', date: 'July 18, 2025', text: 'Reminder: The mid-term exam is next week. Please review chapters 1-4. A review session will be held on Monday.' },
+                    { by: 'Dr. Ahmad Faisal', date: 'July 15, 2025', text: 'The solutions for Assignment 2 have been posted under the "Files" section.' }
+                ],
+                assignments: [
+                    { title: 'Assignment 3 - Derivatives', due: 'July 25, 2025', status: 'Not Submitted' },
+                    { title: 'Quiz 2 - Limits', due: 'July 22, 2025', status: 'Not Submitted' },
+                    { title: 'Assignment 2 - Functions', due: 'July 14, 2025', status: 'Submitted' }
+                ]
+            },
+            'TCP101': {
+                title: 'TCP101 - Programming', instructor: 'Prof. Siti Nurhaliza', image: 'https://images.unsplash.com/photo-1526649661456-89c7ed4d00b8?q=80&w=2070&auto=format&fit=crop', instructorImg: 'https://placehold.co/100x100/A0AEC0/4A5568?text=SN', update: '1 new announcement',
+                announcements: [
+                    { by: 'Prof. Siti Nurhaliza', date: 'July 19, 2025', text: 'Hello class, I have uploaded the requirements for the Final Project. Please form your groups of 3 and register by the end of this week.' }
+                ],
+                assignments: [
+                    { title: 'Final Project Proposal', due: 'July 28, 2025', status: 'Not Submitted' },
+                    { title: 'Lab 5 - Arrays and Pointers', due: 'July 21, 2025', status: 'Submitted' }
+                ]
+            },
+            'TDS201': {
+                title: 'TDS201 - Data Structures', instructor: 'Dr. Boon Leong', image: 'https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070&auto=format&fit=crop', instructorImg: 'https://placehold.co/100x100/718096/FFFFFF?text=BL', update: 'Quiz 2 due Friday',
+                announcements: [],
+                assignments: [
+                     { title: 'Quiz 2 - Stacks and Queues', due: 'July 25, 2025', status: 'Not Submitted' }
+                ]
+            },
+            'TMH101': {
+                title: 'TMH101 - Malaysian History', instructor: 'Dr. Fatimah Az-Zahra', image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop', instructorImg: 'https://placehold.co/100x100/4A5568/FFFFFF?text=FA', update: 'No new updates',
+                announcements: [
+                    { by: 'Dr. Fatimah Az-Zahra', date: 'July 10, 2025', text: 'Welcome to the course! Please read the course outline and syllabus.' }
+                ],
+                assignments: []
+            }
+        };
+
+        // --- Page Content Containers ---
+        const dashboardPage = document.getElementById('dashboard-page');
+        const courseDetailPage = document.getElementById('course-detail-page');
+        const calendarPage = document.getElementById('calendar-page'); // Assume it's populated elsewhere
+        const gradesPage = document.getElementById('grades-page'); // Assume it's populated elsewhere
+        const pages = document.querySelectorAll('.page-content');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // --- RENDER FUNCTIONS ---
+        
+        function renderDashboard() {
+            const courseGrid = dashboardPage.querySelector('.grid');
+            courseGrid.innerHTML = ''; // Clear existing cards
+            for (const courseId in courses) {
+                const course = courses[courseId];
+                const card = `
+                    <div class="course-card bg-white rounded-lg overflow-hidden shadow-sm">
+                        <div class="h-32 bg-cover bg-center" style="background-image: url('${course.image}')"></div>
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold text-gray-800">${course.title}</h3>
+                            <p class="text-sm text-gray-600">${course.instructor}</p>
+                            <div class="mt-4 flex justify-between items-center">
+                                <span class="text-xs text-gray-500">${course.update}</span>
+                                <img class="h-8 w-8 rounded-full object-cover" src="${course.instructorImg}" alt="Instructor">
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 px-4 py-2">
+                             <a href="#" class="view-course-btn text-sm font-medium text-red-600 hover:text-red-800" data-course-id="${courseId}">View Course</a>
+                        </div>
+                    </div>`;
+                courseGrid.innerHTML += card;
+            }
+        }
+
+        function renderCourseDetail(courseId) {
+            const course = courses[courseId];
+            let announcementsHtml = '<p class="text-gray-500">No announcements yet.</p>';
+            if (course.announcements.length > 0) {
+                announcementsHtml = course.announcements.map(ann => `
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <p class="font-semibold text-gray-800">${ann.by}</p>
+                            <p class="text-sm text-gray-500">${ann.date}</p>
+                        </div>
+                        <p class="text-gray-700">${ann.text}</p>
+                    </div>
+                `).join('');
+            }
+
+            let assignmentsHtml = '<p class="text-gray-500">No assignments posted.</p>';
+            if (course.assignments.length > 0) {
+                assignmentsHtml = course.assignments.map((ass, index) => `
+                    <div class="flex items-center justify-between p-4 border-b">
+                        <div>
+                            <p class="font-semibold text-gray-800">${ass.title}</p>
+                            <p class="text-sm text-gray-500">Due: ${ass.due}</p>
+                        </div>
+                        <div>
+                            <button class="submit-assignment-btn text-sm font-medium py-2 px-4 rounded-lg transition-colors ${ass.status === 'Submitted' ? 'assignment-done' : 'bg-red-600 text-white hover:bg-red-700'}" data-course-id="${courseId}" data-assignment-index="${index}" ${ass.status === 'Submitted' ? 'disabled' : ''}>
+                                ${ass.status === 'Submitted' ? 'Completed' : 'Mark as Done'}
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            const detailHtml = `
+                <button id="back-to-dashboard" class="mb-6 text-sm font-medium text-red-600 hover:text-red-800">&larr; Back to All Courses</button>
+                <div class="bg-white rounded-lg shadow-md">
+                    <div class="h-48 bg-cover bg-center rounded-t-lg" style="background-image: url('${course.image}')"></div>
+                    <div class="p-6">
+                        <h2 class="text-3xl font-bold text-gray-800">${course.title}</h2>
+                        <p class="text-md text-gray-600 mt-1">${course.instructor}</p>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Announcements</h3>
+                    ${announcementsHtml}
+                </div>
+
+                <div class="mt-8">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Assignments</h3>
+                    <div class="bg-white rounded-lg shadow-md">
+                        ${assignmentsHtml}
+                    </div>
+                </div>
+            `;
+            courseDetailPage.innerHTML = detailHtml;
+        }
+
+        // --- PAGE NAVIGATION LOGIC ---
+        function showPage(pageId) {
+            pages.forEach(page => page.style.display = 'none');
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) targetPage.style.display = 'block';
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-link-active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('nav-link-active');
+                }
+            });
+             // Special case for dashboard/courses
+            if (pageId === 'dashboard' || pageId === 'course-detail') {
+                 document.querySelector('.nav-link[data-page="dashboard"]').classList.add('nav-link-active');
+            }
+        }
+
+        // --- EVENT LISTENERS ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage(this.dataset.page);
+            });
+        });
+        
+        // Event delegation for dynamically created buttons
+        document.body.addEventListener('click', function(e) {
+            // View Course Button
+            if (e.target.classList.contains('view-course-btn')) {
+                e.preventDefault();
+                const courseId = e.target.dataset.courseId;
+                renderCourseDetail(courseId);
+                showPage('course-detail');
+            }
+
+            // Back to Dashboard Button
+            if (e.target.id === 'back-to-dashboard') {
+                e.preventDefault();
+                showPage('dashboard');
+            }
+
+            // Submit Assignment Button
+            if (e.target.classList.contains('submit-assignment-btn') && !e.target.disabled) {
+                e.preventDefault();
+                const courseId = e.target.dataset.courseId;
+                const assignmentIndex = e.target.dataset.assignmentIndex;
+                
+                // Simulate file upload
+                alert("Simulating file submission for your assignment. In a real app, a file dialog would open.");
+
+                // Update data and UI
+                courses[courseId].assignments[assignmentIndex].status = 'Submitted';
+                e.target.textContent = 'Completed';
+                e.target.classList.add('assignment-done');
+                e.target.disabled = true;
+            }
+        });
+
+        // --- INITIALIZATION ---
+        renderDashboard();
+        // Assume calendar and grades are rendered here
+        showPage('dashboard');
+    });
+    </script>
+</body>
+</html>
